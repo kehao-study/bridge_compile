@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://xsd.u2open.com/bridge"
+            targetNamespace="http://xsd.u2open.com/bridge">
+
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.springframework.org/schema/beans"/>
+    <xsd:import namespace="http://www.springframework.org/schema/tool"/>
+
+    <xsd:annotation>
+        <xsd:documentation>
+            <![CDATA[ Namespace support for the bridge services provided by bridge framework. ]]></xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:element name="bridge-property">
+        <xsd:complexType>
+            <xsd:attribute name="appCode" type="xsd:string" default="${spring.bridge.app-code}">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ every single system has a unique appCode. ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="serverUrl" type="xsd:string" default="${spring.bridge.server-url}">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ bridge console http url. ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="envEnum" type="EnvEnum" default="${spring.bridge.env-enum}">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ system environments. ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="appName" type="xsd:string" default="${spring.bridge.app-name}">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ system name. ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="enable" type="Enable" default="TRUE">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ use configuration center or not. ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:simpleType name="EnvEnum">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[ @see EnvEnum. ]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:normalizedString">
+            <xsd:enumeration value="${spring.bridge.env-enum}"/>
+            <xsd:enumeration value="DEV"/>
+            <xsd:enumeration value="TEST"/>
+            <xsd:enumeration value="STABLE"/>
+            <xsd:enumeration value="ONLINE"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+
+
+    <xsd:simpleType name="Enable">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[ @see BridgeEnableEnum. ]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:normalizedString">
+            <xsd:enumeration value="${spring.bridge.enable}"/>
+            <xsd:enumeration value="TRUE"/>
+            <xsd:enumeration value="FALSE"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

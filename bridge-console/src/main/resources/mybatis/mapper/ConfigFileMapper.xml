@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bridge.console.model.dao.ConfigFileMapper">
+    <resultMap id="BaseResultMap" type="com.bridge.console.model.entity.ConfigFileDO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="creator" jdbcType="INTEGER" property="creator"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="modifier" jdbcType="INTEGER" property="modifier"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+        <result column="is_deleted" jdbcType="BIT" property="isDeleted"/>
+        <result column="app_id" jdbcType="INTEGER" property="appId"/>
+        <result column="config_file_version" jdbcType="VARCHAR" property="configFileVersion"/>
+        <result column="config_file_des" jdbcType="VARCHAR" property="configFileDes"/>
+        <result column="env_id" jdbcType="BIT" property="envId"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bridge.console.model.entity.ConfigFileDO">
+        <result column="config_file" jdbcType="LONGVARCHAR" property="configFile"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, creator, gmt_create, modifier, gmt_modified, is_deleted, app_id, config_file_version,
+        config_file_des, env_id
+    </sql>
+    <sql id="Blob_Column_List">
+        config_file
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from br_config_file
+        where id = #{id,jdbcType=INTEGER} and is_deleted = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from br_config_file where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.bridge.console.model.entity.ConfigFileDO">
+        insert into br_config_file (id, creator, gmt_create,
+          modifier, gmt_modified, is_deleted,
+          app_id, config_file_version, config_file_des,
+          env_id, config_file)
+        values (#{id,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP},
+          #{modifier,jdbcType=INTEGER}, #{gmtModified,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT},
+          #{appId,jdbcType=INTEGER}, #{configFileVersion,jdbcType=VARCHAR}, #{configFileDes,jdbcType=VARCHAR},
+          #{envId,jdbcType=BIT}, #{configFile,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.bridge.console.model.entity.ConfigFileDO">
+        insert into br_config_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="appId != null">
+                app_id,
+            </if>
+            <if test="configFileVersion != null">
+                config_file_version,
+            </if>
+            <if test="configFileDes != null">
+                config_file_des,
+            </if>
+            <if test="envId != null">
+                env_id,
+            </if>
+            <if test="configFile != null">
+                config_file,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="appId != null">
+                #{appId,jdbcType=INTEGER},
+            </if>
+            <if test="configFileVersion != null">
+                #{configFileVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="configFileDes != null">
+                #{configFileDes,jdbcType=VARCHAR},
+            </if>
+            <if test="envId != null">
+                #{envId,jdbcType=BIT},
+            </if>
+            <if test="configFile != null">
+                #{configFile,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bridge.console.model.entity.ConfigFileDO">
+        update br_config_file
+        <set>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="appId != null">
+                app_id = #{appId,jdbcType=INTEGER},
+            </if>
+            <if test="configFileVersion != null">
+                config_file_version = #{configFileVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="configFileDes != null">
+                config_file_des = #{configFileDes,jdbcType=VARCHAR},
+            </if>
+            <if test="envId != null">
+                env_id = #{envId,jdbcType=BIT},
+            </if>
+            <if test="configFile != null">
+                config_file = #{configFile,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER} and is_deleted = 0
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bridge.console.model.entity.ConfigFileDO">
+        update br_config_file
+        set creator = #{creator,jdbcType=INTEGER},
+          gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+          modifier = #{modifier,jdbcType=INTEGER},
+          gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+          is_deleted = #{isDeleted,jdbcType=BIT},
+          app_id = #{appId,jdbcType=INTEGER},
+          config_file_version = #{configFileVersion,jdbcType=VARCHAR},
+          config_file_des = #{configFileDes,jdbcType=VARCHAR},
+          env_id = #{envId,jdbcType=BIT},
+          config_file = #{configFile,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="queryConfigFile" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from br_config_file
+        where app_id = #{appId,jdbcType=INTEGER} and is_deleted = 0
+        <if test="envId != null">
+            and env_id = #{envId,jdbcType=BIT}
+        </if>
+    </select>
+
+    <update id="deleteConfigFile">
+        update br_config_file set is_deleted = 1, modifier = #{modifier,jdbcType=INTEGER}, gmt_modified = now()
+        where id = #{id,jdbcType=INTEGER} and is_deleted = 0
+    </update>
+</mapper>

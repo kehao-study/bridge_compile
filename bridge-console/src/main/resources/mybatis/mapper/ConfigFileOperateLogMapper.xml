@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bridge.console.model.dao.ConfigFileOperateLogMapper">
+    <resultMap id="BaseResultMap" type="com.bridge.console.model.entity.ConfigFileOperateLogDO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="creator" jdbcType="INTEGER" property="creator"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="modifier" jdbcType="INTEGER" property="modifier"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+        <result column="is_deleted" jdbcType="BIT" property="isDeleted"/>
+        <result column="app_id" jdbcType="INTEGER" property="appId"/>
+        <result column="env_id" jdbcType="BIT" property="envId"/>
+        <result column="operate_id" jdbcType="INTEGER" property="operateId"/>
+        <result column="operate_name" jdbcType="VARCHAR" property="operateName"/>
+        <result column="version_after" jdbcType="VARCHAR" property="versionAfter"/>
+        <result column="operate_type" jdbcType="TINYINT" property="operateType"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+               type="com.bridge.console.model.entity.ConfigFileOperateLogDO">
+        <result column="value_after" jdbcType="LONGVARCHAR" property="valueAfter"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, creator, gmt_create, modifier, gmt_modified, is_deleted, app_id,
+        env_id, operate_id, operate_name, version_after, operate_type
+    </sql>
+    <sql id="Blob_Column_List">
+        value_after
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from br_config_file_operate_log
+        where id = #{id,jdbcType=INTEGER} and is_deleted = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from br_config_file_operate_log where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.bridge.console.model.entity.ConfigFileOperateLogDO">
+        insert into br_config_file_operate_log (id, creator, gmt_create,
+          modifier, gmt_modified, is_deleted,
+          app_id, env_id,
+          operate_id, operate_name,
+          value_after, version_after, operate_type)
+        values (#{id,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP},
+          #{modifier,jdbcType=INTEGER}, #{gmtModified,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT},
+          #{appId,jdbcType=INTEGER}, #{envId,jdbcType=BIT},#{operateId,jdbcType=INTEGER},
+          #{operateName,jdbcType=VARCHAR}, #{valueAfter,jdbcType=VARCHAR},
+          #{versionAfter,jdbcType=VARCHAR}, #{operateType,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.bridge.console.model.entity.ConfigFileOperateLogDO">
+        insert into br_config_file_operate_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="appId != null">
+                app_id,
+            </if>
+            <if test="envId != null">
+                env_id,
+            </if>
+            <if test="operateId != null">
+                operate_id,
+            </if>
+            <if test="operateName != null">
+                operate_name,
+            </if>
+            <if test="valueAfter != null">
+                value_after,
+            </if>
+            <if test="versionAfter != null">
+                version_after,
+            </if>
+            <if test="operateType != null">
+                operate_type
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="appId != null">
+                #{appId,jdbcType=INTEGER},
+            </if>
+            <if test="envId != null">
+                #{envId,jdbcType=BIT},
+            </if>
+            <if test="operateId != null">
+                #{operateId,jdbcType=INTEGER},
+            </if>
+            <if test="operateName != null">
+                #{operateName,jdbcType=VARCHAR},
+            </if>
+            <if test="valueAfter != null">
+                #{valueAfter,jdbcType=VARCHAR},
+            </if>
+            <if test="versionAfter != null">
+                #{versionAfter,jdbcType=VARCHAR},
+            </if>
+            <if test="operateType != null">
+                #{operateType,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bridge.console.model.entity.ConfigFileOperateLogDO">
+        update br_config_file_operate_log
+        <set>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="appId != null">
+                app_id = #{appId,jdbcType=INTEGER},
+            </if>
+            <if test="envId != null">
+                env_id = #{envId,jdbcType=BIT},
+            </if>
+            <if test="operateId != null">
+                operate_id = #{operateId,jdbcType=INTEGER},
+            </if>
+            <if test="operateName != null">
+                operate_name = #{operateName,jdbcType=VARCHAR},
+            </if>
+            <if test="valueAfter != null">
+                value_after = #{valueAfter,jdbcType=VARCHAR},
+            </if>
+            <if test="versionAfter != null">
+                version_after = #{versionAfter,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="operateType != null">
+                operate_type = #{operateType,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bridge.console.model.entity.ConfigFileOperateLogDO">
+         update br_config_file_operate_log
+        set creator = #{creator,jdbcType=INTEGER},
+          gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+          modifier = #{modifier,jdbcType=INTEGER},
+          gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+          is_deleted = #{isDeleted,jdbcType=BIT},
+          app_id = #{appId,jdbcType=INTEGER},
+          env_id = #{envId,jdbcType=BIT},
+          operate_id = #{operateId,jdbcType=INTEGER},
+          operate_name = #{operateName,jdbcType=VARCHAR},
+          value_after = #{valueAfter,jdbcType=LONGVARCHAR},
+          version_after = #{versionAfter,jdbcType=VARCHAR},
+          operate_type = #{operateType,jdbcType=TINYINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="countConfigFileLogList" parameterType="com.bridge.console.model.vo.ConfigFileLogQuery" resultType="int">
+        select count(0) from br_config_file_operate_log a left join br_app_def b on a.app_id = b.id
+        where a.is_deleted = 0 and b.is_deleted = 0
+        <if test="appName != null and appName != ''">
+            and b.app_name like CONCAT('%', #{appName,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="envId != null">
+            and a.env_id = #{envId,jdbcType=BIT}
+        </if>
+    </select>
+
+    <select id="queryConfigFileLogList" parameterType="com.bridge.console.model.vo.ConfigFileLogQuery"
+            resultType="com.bridge.console.model.bo.ConfigFileLogBO">
+        select
+        a.id as id,
+        a.gmt_create as gmtCreate,
+        a.app_id as appId,
+        b.app_name as appName,
+        a.env_id as envId,
+        a.operate_id as operateId,
+        a.operate_name as operateName,
+        a.value_after as valueAfter,
+        a.version_after as versionAfter,
+        a.operate_type as operateType
+        from br_config_file_operate_log a left join br_app_def b on a.app_id = b.id
+        where a.is_deleted = 0 and b.is_deleted = 0
+        <if test="appName != null and appName != ''">
+            and b.app_name like CONCAT('%', #{appName,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="envId != null">
+            and a.env_id = #{envId,jdbcType=BIT}
+        </if>
+        <if test="sorts != null">
+            order by
+            <foreach collection="sorts" item="tag" separator=",">
+                a.${tag}
+            </foreach>
+        </if>
+        <if test="offset &gt;= 0 and limit &gt; 0">
+            LIMIT #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+
+
+    <select id="queryConfigFileLogByType" resultType="com.bridge.console.model.vo.ChartVO">
+        select
+        b.dateTimes as xTime,
+        max( case b.operate_type when 0 then b.dateValue else 0 end ) as pushValue,
+        max( case b.operate_type when 3 then b.dateValue else 0 end ) as rollbackValue,
+        max( case b.operate_type when 4 then b.dateValue else 0 end ) as saveValue
+        from
+        (
+        select
+        DATE_FORMAT(gmt_create,'%Y-%m-%d') as dateTimes,
+        count(0) as dateValue,
+        operate_type as operate_type
+        from br_config_file_operate_log
+        where is_deleted = 0 and env_id = #{envId,jdbcType=BIT}
+        <if test="startTime != null and startTime != ''">
+            and gmt_create &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+           and gmt_create &lt;= #{endTime}
+        </if>
+        <if test="appIdList != null and appIdList.size() > 0">
+            and app_id in
+            <foreach collection="appIdList" open="(" item="item" close=")" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        group by dateTimes,operate_type order by dateTimes desc
+        ) as b
+        group by b.dateTimes;
+    </select>
+
+
+</mapper>
