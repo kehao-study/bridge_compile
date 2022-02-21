@@ -10,7 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "@chakra-ui/vue": "^0.6.1",
+    "@chakra-ui/vue": "^0.11.0",
     "ajv": "^6.7.0",
     "ant-design-vue": "^1.6.5",
     "element-ui": "^2.13.2",
